@@ -2,11 +2,15 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { Http, Headers } from "@angular/http";
 import { environment } from "../../environments/environment";
+import { ApiService } from "./api.service";
+import { Subject } from "rxjs";
+import { HelperService } from "./helper.service";
+import Negocio from "../models/negocio.interface";
 
 @Injectable()
 
 export class LugaresService{
-API_ENDPOINT = 'https://angular4platziapp.firebaseio.com';
+
 
   /*Array Local*/
     // negocios: Array<any> = [
@@ -17,13 +21,30 @@ API_ENDPOINT = 'https://angular4platziapp.firebaseio.com';
     //     {id: 5, plan: 'gratuito', cercania: 3, distancia: 1.8, active: true, nombreEmpresa : 'Loncho2', description: 'Esto es algo que no se sabe'}
     //   ];
 
-      constructor(private angularFireBase: AngularFireDatabase, private http: Http) {
+      constructor(private angularFireBase: AngularFireDatabase, private apiService: ApiService) {
         
       }
 
-      public getNegocios(){
+      public getNegocios() {
+        const subject = new Subject<any>();
+        this.apiService.httpGet('/negocios.json')
+          .subscribe(
+            (data: any) => {
+              const negocios = HelperService.fromObjectToArray(data);
+              // debugger
+              // TODO Convert Object to array
+              subject.next(negocios);
+            },
+            (err: any) => {
+              subject.error(err);
+            }
+          )
+
+          return subject.asObservable();
+
+
           // return this.negocios;
-          return this.angularFireBase.list('negocios/');
+          // return this.angularFireBase.list('negocios/');
           //llamada a la API de fire base y pidiendo datos
       }
 
@@ -41,7 +62,7 @@ API_ENDPOINT = 'https://angular4platziapp.firebaseio.com';
         this.angularFireBase.database.ref('negocios/' + negocio.id).set(negocio); //USANDO SOCKET
        /*Con la forma de abajo se usa mediante HTTP */
         const headers = new Headers({"Content-Type": "application/json"});
-        return this.http.post(this.API_ENDPOINT + '/negocios.json', negocio, {headers: headers});
+        // return this.http.post(this.API_ENDPOINT + '/negocios.json', negocio, {headers: headers});
       }
 
       public guardarNegocioEditado(negocio){
@@ -51,13 +72,21 @@ API_ENDPOINT = 'https://angular4platziapp.firebaseio.com';
 
       public obtenerGeoData(direccion){
         direccion = direccion.replace(' ', '+');
-        return this.http.get(`https://maps.google.com/maps/api/geocode/json?address=${direccion}&key=${environment.GOOGLE_GEOCODE_API_KEY}`);
+        // return this.http.get(`https://maps.google.com/maps/api/geocode/json?address=${direccion}&key=${environment.GOOGLE_GEOCODE_API_KEY}`);
       }
 
       public getNegocio(id){
-        /*Metodo SOCKET de firebase*/
-        // return this.angularFireBase.object('negocios/' + id);
-        return this.http.get(this.API_ENDPOINT + '/negocios.json');
+        const subject = new Subject<any>();
+        this.apiService.httpGet(`/negocios/${id}.json`)
+          .subscribe(
+            (data: Negocio) => {
+              subject.next(data);
+            },
+            (err: any) => {
+              subject.error(err);
+            }
+          )
+          return subject.asObservable();
       }
 
 }

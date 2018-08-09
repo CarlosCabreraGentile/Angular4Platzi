@@ -13,20 +13,24 @@ export class CrearComponent implements OnInit {
 
   constructor(private lugaresService: LugaresService, private route: ActivatedRoute) { 
     this.id = this.route.snapshot.params['id'];
-    if(this.id != 'new'){
-      this.lugaresService.getNegocio(this.id)
-        .subscribe((negocio) => { //con el get de http se le quita el valueChanges() al subscribe
-          this.negocio = negocio;
-        });
-    }
-    // console.log(this.id);
+    // debugger
+   
   }
 
   ngOnInit() {
+    if(this.id != 'new'){
+      this.lugaresService.getNegocio(this.id)
+        .subscribe((negocio) => { //con el get de http se le quita el valueChanges() al subscribe
+          // debugger;
+          this.negocio = negocio;
+        });
+    }
   }
 
   guardarNegocio() {
     let direccion = this.negocio.calle + ',' + this.negocio.ciudad + ',' + this.negocio.pais;
+
+    /*
     this.lugaresService.obtenerGeoData(direccion)
       .subscribe((result) => {
         // debugger;
@@ -44,6 +48,7 @@ export class CrearComponent implements OnInit {
         }
         this.negocio = {};
       });
+      */
   }
 
 }

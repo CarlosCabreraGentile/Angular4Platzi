@@ -16,9 +16,20 @@ export class LugaresComponent implements OnInit {
   
   constructor(private lugaresService: LugaresService) {
     lugaresService.getNegocios()
+      .subscribe(
+        (data: any) => {
+          this.negocios = data;
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      )
+
+      /*
       .valueChanges().subscribe((negocios) => {
         this.negocios = negocios;
       });
+      */
     // console.dir('LugaresComponent');
     // setTimeout(() => {
     //   this.listo = true;
