@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
-import { Http } from "@angular/http";
+import { Http, Headers } from "@angular/http";
 import { environment } from "../../environments/environment";
 
 @Injectable()
 
 export class LugaresService{
+API_ENDPOINT = 'https://angular4platziapp.firebaseio.com';
+
   /*Array Local*/
     // negocios: Array<any> = [
     //     {id: 1, plan: 'pagado', cercania: 1, distancia: 1, active: true, nombreEmpresa : 'Flor', description: 'Esto es una floreria'},
@@ -36,7 +38,10 @@ export class LugaresService{
 
       public guardarNegocioNuevo(negocio){
         // console.log(negocio);
-        this.angularFireBase.database.ref('negocios/' + negocio.id).set(negocio);
+        this.angularFireBase.database.ref('negocios/' + negocio.id).set(negocio); //USANDO SOCKET
+       /*Con la forma de abajo se usa mediante HTTP */
+        const headers = new Headers({"Content-Type": "application/json"});
+        return this.http.post(this.API_ENDPOINT + '/negocios.json', negocio, {headers: headers});
       }
 
       public guardarNegocioEditado(negocio){
@@ -50,7 +55,9 @@ export class LugaresService{
       }
 
       public getNegocio(id){
-        return this.angularFireBase.object('negocios/' + id);
+        /*Metodo SOCKET de firebase*/
+        // return this.angularFireBase.object('negocios/' + id);
+        return this.http.get(this.API_ENDPOINT + '/negocios.json');
       }
 
 }

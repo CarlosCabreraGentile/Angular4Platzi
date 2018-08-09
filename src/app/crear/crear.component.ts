@@ -15,7 +15,7 @@ export class CrearComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     if(this.id != 'new'){
       this.lugaresService.getNegocio(this.id)
-        .valueChanges().subscribe((negocio) => {
+        .subscribe((negocio) => { //con el get de http se le quita el valueChanges() al subscribe
           this.negocio = negocio;
         });
     }
@@ -29,7 +29,7 @@ export class CrearComponent implements OnInit {
     let direccion = this.negocio.calle + ',' + this.negocio.ciudad + ',' + this.negocio.pais;
     this.lugaresService.obtenerGeoData(direccion)
       .subscribe((result) => {
-        debugger;
+        // debugger;
         this.negocio.lat = result.json().results[0].geometry.location.lat;
         this.negocio.lng = result.json().results[0].geometry.location.lng;
         
@@ -38,7 +38,7 @@ export class CrearComponent implements OnInit {
           alert('Negocio Editado');
         }
         else{
-          this.negocio.id = Date.now();
+        this.negocio.id = Date.now();
         this.lugaresService.guardarNegocioNuevo(this.negocio);
         alert('Negocio Guardado');
         }
