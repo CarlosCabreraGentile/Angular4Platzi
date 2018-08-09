@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="well">
+      <a routerLink="/lugares">Negocios</a> / Contacto
+    </div>
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Nombre</label>
+          <input type="text" class="form-control" [(ngModel)]="negocio.nombre" placeholder="Nombre">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Distancia</label>
+          <input type="number" class="form-control" [(ngModel)]="negocio.distancia" placeholder="Distancia">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Cercania</label>
+          <input type="number" class="form-control" [(ngModel)]="negocio.cercania" placeholder="Cercania">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Descripcion</label>
+          <textarea class="form-control" [(ngModel)]="negocio.descripcion" rows="3" placeholder="Descripcion"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Plan</label>
+            <input type="text" class="form-control" [(ngModel)]="negocio.plan" placeholder="Correo">
+        </div>
+        <hr>
+        <h3>Datos de direccion</h3>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Calle y numero</label>
+            <input type="text" class="form-control" [(ngModel)]="negocio.calle" placeholder="Calle">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Ciudad</label>
+            <input type="text" class="form-control" [(ngModel)]="negocio.ciudad" placeholder="Ciudad">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Pais</label>
+            <input type="text" class="form-control" [(ngModel)]="negocio.pais" placeholder="Pais">
+        </div>
+        <hr>
+        <button class="btn btn-default" routerLink="/lugares">Cancelar</button>
+        <button class="btn btn-primary" (click)="guardarNegocio()">Enviar</button>
+    </div>
+  </div>
+</div>

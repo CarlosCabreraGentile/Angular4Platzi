@@ -1,0 +1,246 @@
+ngModule:
+lo que gestiona toda la app.
+En declarations deberia estar cada seccion de la app, por ejemplo, home, contact, about us, etc.
+
+COMPONENTES:
+Por buena practica cada vista deberia ser un componente distinto
+
+DATA BINDING:
+
+String interpolation {{}} Typescript => HTML (se pueden poner operaciones matematicas {{ 3+5 }})
+Property Binding [] Typescript <= HTML (<button [disabled]="true">Click Me!</button)
+Event Binding [] Typescript <= HTML
+Two Way Data Binding [()] Typescript <=> HTML
+
+PROPERTY BINDING:
+
+<button [disabled]="!listo">Click Me!</button>
+
+  listo = false;
+
+constructor() {
+  setTimeout(() => {
+    this.listo = true;
+  }, 3000);
+}
+
+-------------------------------------------------------------------------------
+
+EVENT BINDING:
+
+(click)="hacerAlgo()"
+
+hacerAlgo(){
+  alert('Haciendo algo');
+}
+
+---------------------------------------------------------------------------------
+
+TWO WAY DATA BINDING:
+
+nombre: string = '';
+
+<input type="text" placeholder="nombre" [(ngModel)]="nombre">
+<p>El nombre es {{ nombre }}</p>
+
+IMPORTAR MODULO: 
+import { FormsModule } from '@angular/forms';
+
+imports: [
+  BrowserModule,
+  FormsModule
+],
+
+------------------------------------------------------------------------------------
+
+DIRECTIVAS:
+-COMPONENTES: Directivas con un template
+-ESTRUCTURALES: Directivas que cambien el DOM (<li *ngFor=""></li>) SI HAY 2 DIRECTIVAS
+    COMO ngIf Y ngFor, SE PUEDE USAR <NG-CONTAINER> Y TIRO EL ngFor AHI ADENTRO 
+-ATRIBUTOS: Directivas implementadas a través de atributos que pueden modificar el elemento al que están asignadas
+
+**************************************************************************************
+Estructurales:
+<ul>
+  <li *ngFor="let negocio of negocios">El negocio se llama {{ negocio.nombreEmpresa }}</li>
+</ul>
+
+negocios: Array<any> = [
+  {nombreEmpresa : 'Flor'},
+  {nombreEmpresa : 'Pan'},
+  {nombreEmpresa : 'Perro'}
+]
+
+ejemplo con ng-container para usar 2 directivas
+
+<ul>
+  <ng-container *ngFor="let negocio of negocios, let i = index"> (SE PUEDE DECLARAR UN INDICE)
+    <li *ngIf="negocio.active" 
+    >El negocio se llama {{ negocio.nombreEmpresa }}</li>
+  </ng-container>
+</ul>
+**************************************************************************************
+Atributos: Se utilizan corchetes [ngStyle], [ngClass], [ngSwitch] 
+
+<ul>
+    <ng-container *ngFor="let negocio of negocios; let i = index" 
+                  [ngSwitch]="negocio.cercania">
+      <li [ngStyle]="{color: (negocio.active) ? 'black' : 'green'}"
+          [ngClass]="{numeroPar: (i+1) % 2 !== 0}">
+          El negocio se llama {{ negocio.nombreEmpresa }} - 
+          <span *ngSwitchCase="1" [ngStyle]="{color: 'green'}"> Muy Cercano</span> 
+          <span *ngSwitchCase="2" [ngStyle]="{color: 'brown'}">Cercano</span>
+          <span *ngSwitchCase="3" [ngStyle]="{color: 'red'}">Lejano</span>
+      </li>    
+  </ng-container>
+</ul>>
+
+***************************************************************************************
+
+Directiva Propia:
+
+/***********************************************/
+<ng-container *ngFor="let negocio of negocios; let i = index" 
+                [ngSwitch]="negocio.cercania">
+    <li [ngStyle]="{color: (negocio.active) ? 'black' : 'green'}"
+        [ngClass]="{numeroPar: (i+1) % 2 !== 0}"
+        [resaltar]="negocio.plan">
+        El negocio se llama {{ negocio.nombreEmpresa }} - 
+        <span *ngSwitchCase="1" [ngStyle]="{color: 'green'}"> Muy Cercano</span> 
+        <span *ngSwitchCase="2" [ngStyle]="{color: 'brown'}">Cercano</span>
+        <span *ngSwitchCase="3" [ngStyle]="{color: 'red'}">Lejano</span>
+    </li>    
+</ng-container>
+
+/***********************************************/
+
+import { Directive, OnInit, ElementRef, Renderer2, Input } from "@angular/core";
+
+@Directive({
+    selector: '[resaltar]'
+})
+
+export class ResaltarDirective implements OnInit{
+    @Input('resaltar') plan: string = ''; 
+
+    constructor(private elRef: ElementRef, private renderer: Renderer2){
+
+    }
+
+    ngOnInit(){
+        if(this.plan === 'pagado'){
+            this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'yellow');
+            this.renderer.setStyle(this.elRef.nativeElement, 'font-weight', 'bold');
+        }
+    
+/***********************************************/
+
+negocios: Array<any> = [
+    {plan: 'pagado', cercania: 1, distancia: 1, active: true, nombreEmpresa : 'Flor'},
+    {plan: 'gratuito', cercania: 3, distancia: 5, active: true, nombreEmpresa : 'Pan'},
+    {plan: 'pagado', cercania: 2, distancia: 6, active: false, nombreEmpresa : 'Perro'},
+    {plan: 'gratuito', cercania: 3, distancia: 1.8, active: false, nombreEmpresa : 'Loncho'}
+  ];
+---------------------------------------------------------------------------------------
+HOST LISTENER: escuchar eventos por parte del usuario en el DOM, contar clicks por ejemplo, se crea una directiva, se importa, etc.
+
+<ng-container *ngFor="let negocio of negocios; let i = index" 
+                  [ngSwitch]="negocio.cercania">
+      <a contarClicks> 
+          <li [ngStyle]="{color: (negocio.active) ? 'black' : 'green'}"
+              [ngClass]="{numeroPar: (i+1) % 2 !== 0}"
+              [resaltar]="negocio.plan">
+              El negocio se llama {{ negocio.nombreEmpresa }} - 
+              <span *ngSwitchCase="1" [ngStyle]="{color: 'green'}"> Muy Cercano</span> 
+              <span *ngSwitchCase="2" [ngStyle]="{color: 'brown'}">Cercano</span>
+              <span *ngSwitchCase="3" [ngStyle]="{color: 'red'}">Lejano</span>
+          </li>
+      </a>    
+</ng-container>
+
+/*********************************/
+import { Directive, HostListener } from "@angular/core";
+
+@Directive({
+    selector: 'a[contarClicks]'
+})
+
+export class ContarClicksDirective{
+    clickN = 0;
+
+    @HostListener('click', ['$event.target']) onClick(btn){
+        console.log('a', btn, "Numero de clicks: ", this.clickN++);
+    }
+}
+
+---------------------------------------------------------------------------------------
+
+HOST BINDING: al contrario que el HOST LISTENER, edita el elemento del DOM o el HTML desde nuestra 
+propia directiva
+
+---------------------------------------------------------------------------------------
+
+RUTEO: a cada vista se le dice que componente debe desplegar. Permite implementar la navegacion en la pagina, se pueden recibir parametros
+Las rutas se definen en el app.module.ts
+
+import { Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  {path: '', component:AppComponent},
+  {path: 'lugares', component:AppComponent}
+]
+
+LINK ACTIVO EN EL NAVBAR: 
+
+<li routerLinkActive="active">
+    <a routerLink="/lugares">Inicio
+        <span class="sr-only">(current)</span>
+    </a>
+</li>
+
+ENVIAR PARAMETROS POR URL:
+//LUGARES.COMPONENTE.TS TIENE UN ARRAY DE NEGOCIOS, CON SU ID
+
+<ul class="list-group">
+        <ng-container *ngFor="let negocio of negocios">
+          <a routerLink="/detalle/{{ negocio.id }}"> (ACA SE ENVIA EL PARAMETRO)
+            <li class="list-group-item" *ngIf="negocio.active">El negocio se llama                         {{ negocio.nombreEmpresa }}</li>
+          </a>  
+          </ng-container>
+</ul>
+
+ENVIAR PARAMETROS POR QUERY:
+
+<ul class="list-group">
+    <ng-container *ngFor="let negocio of negocios">
+        <a routerLink="/detalle/{{ negocio.id }}"
+          [queryParams]="{pato: 'pato', perro: 'perro'}"> (ACA SE MANDAN LOS PARAMETROS POR QUERY)
+            <li class="list-group-item" *ngIf="negocio.active">El negocio se llama {{ negocio.nombreEmpresa }}
+            </li>
+    </a>  
+    </ng-container>
+</ul>
+
+---------------------------------------------------------------------------------------------
+
+SERVICIOS:
+-Permiten centralizar funcionalidad
+-Puede ser usados desde cualquier componente
+-Hacen nuestra app mucho mas mantenible
+Se crea el servicio en un carpeta, se genera el @Injectable, luego en el app.module se agrega en providers el servicio que se creo.
+
+Con Date.now() se puede grabar la fecha actual en milisegundos, lo que genera un numero largo unico.
+Si el resultado que devuelve es un string muy largo, se puede formatear a json por ej:
+resultado.json()
+
+
+
+
+
+
+
+
+
+
+
+

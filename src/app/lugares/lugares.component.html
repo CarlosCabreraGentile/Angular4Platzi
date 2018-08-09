@@ -1,0 +1,26 @@
+<div class="row">
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h2>{{ title }}</h2>
+      <a class="btn btn-primary" routerLink="/crear/new">Crear Negocio</a>
+      <hr>
+      <ul class="list-group">
+        <ng-container *ngFor="let negocio of negocios">
+          <a routerLink="/crear/{{ negocio.id }}"><!--[queryParams]="{pato: 'queryPato', perro: 'queryPerro'}" ESTO TAMBIEN SE PUEDE PONER ADENTRO DEL A--> 
+            <li class="list-group-item">El negocio se llama {{ negocio.nombre }}</li>
+          </a>  
+          </ng-container>
+      </ul>
+      <hr>
+    </div>
+    <div class="col-md-4">
+      <h2>Destacados</h2>
+    </div>
+  </div>
+</div>
