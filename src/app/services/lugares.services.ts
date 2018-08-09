@@ -45,6 +45,7 @@ export class LugaresService{
 
       public obtenerGeoData(direccion){
         direccion = direccion.replace(' ', '+');
+        //http://maps.google.com/maps/api/geocode/json?address=78-43+diagonal+70f,+Bogota,Colombia
         return this.http.get(`https://maps.google.com/maps/api/geocode/json?address=${direccion}&key=${environment.GOOGLE_GEOCODE_API_KEY}`);
       }
 
