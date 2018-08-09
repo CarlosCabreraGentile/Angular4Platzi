@@ -20,7 +20,7 @@ import { HttpModule } from '@angular/http';
 import { environment } from '../environments/environment';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBGuoXtkVDRChhXVjP9zqogZ4Rpn_B-lTg", //key vieja
+  apiKey: "AIzaSyBmeDwdL7MWFLTc2p1-xYcVEzs3s__gwvA",
   authDomain: "angular4platziapp.firebaseapp.com",
   databaseURL: "https://angular4platziapp.firebaseio.com",
   storageBucket: "angular4platziapp.appspot.com",
@@ -31,6 +31,12 @@ export const firebaseConfig = {
   // databaseURL: "https://angular4platziapp2.firebaseio.com",
   // storageBucket: "angular4platziapp2.appspot.com",
   // messagingSenderId: "1016831324985"
+
+  // apiKey: "AIzaSyCwUkfLH1P-ra4K6QTPoKHkG6WNrEzx9xY",
+  // authDomain: "angular4platziapp-212814.firebaseapp.com",
+  // databaseURL: "https://angular4platziapp-212814.firebaseio.com",
+  // storageBucket: "",
+  // messagingSenderId: "519441962064"
 
 }
 
@@ -57,7 +63,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDrNMdOlevznbuc-w8JwwJmqszdN9kV_Kc'
+      apiKey: 'AIzaSyBmeDwdL7MWFLTc2p1-xYcVEzs3s__gwvA'
     }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,

@@ -1,6 +1,8 @@
 <div class="row">
   <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-marker *ngFor="let negocio of negocios" 
+    [latitude]="negocio.lat" 
+    [longitude]="negocio.lng"></agm-marker>
   </agm-map>
 </div>
 

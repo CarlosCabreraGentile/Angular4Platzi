@@ -1,3 +1,15 @@
+Comandos GIT
+
+git status
+git checkout -b branchName
+git add -A
+git add .
+Estar en Master y hacer git merge branchName
+git checkout master
+git commit -m "Message"
+
+--------------------------------------------------------------------------------
+
 ngModule:
 lo que gestiona toda la app.
 En declarations deberia estar cada seccion de la app, por ejemplo, home, contact, about us, etc.
@@ -232,13 +244,6 @@ Se crea el servicio en un carpeta, se genera el @Injectable, luego en el app.mod
 Con Date.now() se puede grabar la fecha actual en milisegundos, lo que genera un numero largo unico.
 Si el resultado que devuelve es un string muy largo, se puede formatear a json por ej:
 resultado.json()
-
-
-
-
-
-
-
 
 
 

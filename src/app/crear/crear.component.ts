@@ -32,7 +32,7 @@ export class CrearComponent implements OnInit {
         debugger;
         this.negocio.lat = result.json().results[0].geometry.location.lat;
         this.negocio.lng = result.json().results[0].geometry.location.lng;
-
+        
         if(this.id != 'new'){
           this.lugaresService.guardarNegocioEditado(this.negocio);
           alert('Negocio Editado');
