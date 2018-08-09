@@ -16,6 +16,7 @@ export class LugaresService{
     //   ];
 
       constructor(private angularFireBase: AngularFireDatabase, private http: Http) {
+        
       }
 
       public getNegocios(){
