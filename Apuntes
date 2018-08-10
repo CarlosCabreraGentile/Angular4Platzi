@@ -245,6 +245,36 @@ Con Date.now() se puede grabar la fecha actual en milisegundos, lo que genera un
 Si el resultado que devuelve es un string muy largo, se puede formatear a json por ej:
 resultado.json()
 
+----------------------------------------------------------------------------------------------
+
+FORMATEO CON MAP: permite formatear la llamada
+
+return.this.http.get(this.URL + '/.json')
+.map((resultado) => { //hay que importar map de rxjs import 'rxjs/add/operator/map'
+    const data = resultado.json().negocios;
+    return data;
+})
+
+----------------------------------------------------------------------------------------------
+
+PIPES: Toman datos de entrada y los tranforman en una manera determinada. Por ejemplo convertir un texto todo a mayusculas o a minusculas. Tambien se puede formatear una fecha a un formato especifico.
+Tambien se pueden crear los propios pipes.
+
+<small> Creado: {{ negocio.id | date | uppercase}}</small> //cambia un formato de fecha a otro mas legible
+y tambien se pueden concatenar pipes
+
+PASANDO PARAMETROS: 
+date:"dd-MM-yyyy"
+date:"medium"
+date:"short"
+date:"fullDate"
+date:"shortTime"
+date:"mediumTime"
+
+
+
+
+
 
 
 

@@ -19,6 +19,7 @@ import { CrearComponent } from './crear/crear.component';
 import { HttpModule } from '@angular/http';
 import { environment } from '../environments/environment';
 import { ApiService } from './services/api.service';
+import { LinkifystrPipe } from './pipes/linkifystr.pipe';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBmeDwdL7MWFLTc2p1-xYcVEzs3s__gwvA",
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     DetalleComponent,
     LugaresComponent,
     ContactoComponent,
-    CrearComponent
+    CrearComponent,
+    LinkifystrPipe
   ],
   imports: [
     BrowserModule,

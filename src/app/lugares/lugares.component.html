@@ -14,10 +14,15 @@
       <hr>
       <ul class="list-group">
         <ng-container *ngFor="let negocio of negocios">
-          <a routerLink="/crear/{{ negocio.id }}"><!--[queryParams]="{pato: 'queryPato', perro: 'queryPerro'}" ESTO TAMBIEN SE PUEDE PONER ADENTRO DEL A--> 
-            <li class="list-group-item">El negocio se llama {{ negocio.nombre }}</li>
-          </a>  
-          </ng-container>
+           <!--[queryParams]="{pato: 'queryPato', perro: 'queryPerro'}" ESTO TAMBIEN SE PUEDE PONER ADENTRO DEL A--> 
+          <li class="list-group-item">
+              <a routerLink="/crear/{{ negocio._id }}"> <h4>{{ negocio.nombre | uppercase }}</h4></a>
+            <br>
+            <small> Creado: {{ negocio._id | date:"medium" | uppercase }}</small>
+            <p> Descripcion del negocio: {{ negocio.descripcion }} </p>
+            <p>{{ negocio._id }}</p> 
+          </li>
+        </ng-container>
       </ul>
       <hr>
     </div>
