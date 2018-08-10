@@ -1,8 +1,8 @@
 <div class="row">
   <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker *ngFor="let negocio of negocios" 
-    [latitude]="negocio.lat" 
-    [longitude]="negocio.lng"></agm-marker>
+    <agm-marker *ngFor="let biz of bussiness" 
+    [latitude]="biz.lat" 
+    [longitude]="biz.lng"></agm-marker>
   </agm-map>
 </div>
 
@@ -10,24 +10,24 @@
   <div class="row">
     <div class="col-md-8">
       <h2>{{ title }}</h2>
-      <a class="btn btn-primary" routerLink="/crear/new">Crear Negocio</a>
+      <a class="btn btn-primary" routerLink="/crear/new">Create Biz</a>
       <hr>
       <ul class="list-group">
-        <ng-container *ngFor="let negocio of negocios">
+        <ng-container *ngFor="let biz of bussiness">
            <!--[queryParams]="{pato: 'queryPato', perro: 'queryPerro'}" ESTO TAMBIEN SE PUEDE PONER ADENTRO DEL A--> 
           <li class="list-group-item">
-              <a routerLink="/crear/{{ negocio._id }}"> <h4>{{ negocio.nombre | uppercase }}</h4></a>
+              <a routerLink="/crear/{{ biz._id }}"> <h4>{{ biz.nombre | uppercase }}</h4></a>
             <br>
-            <small> Creado: {{ negocio._id | date:"medium" | uppercase }}</small>
-            <p> Descripcion del negocio: {{ negocio.descripcion }} </p>
-            <p>{{ negocio._id }}</p> 
+            <small> Created: {{ biz._id | uppercase }}</small>
+            <p> Description: {{ biz.descripcion }} </p>
+            <p>{{ biz._id }}</p> 
           </li>
         </ng-container>
       </ul>
       <hr>
     </div>
     <div class="col-md-4">
-      <h2>Destacados</h2>
+      <h2>Tags</h2>
     </div>
   </div>
 </div>
