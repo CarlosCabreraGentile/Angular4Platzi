@@ -271,6 +271,18 @@ date:"fullDate"
 date:"shortTime"
 date:"mediumTime"
 
+----------------------------------------------------------------------------------------------
+
+JSON Web (JWT)
+
+-Son token que brindan seguridad con cadenas de string super largas.
+-Pueden ser firmados con llave publica o privada
+-Es un mecanismo compacto
+
+
+
+
+
 
 
 

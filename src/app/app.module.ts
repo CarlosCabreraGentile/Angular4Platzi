@@ -20,6 +20,7 @@ import { HttpModule } from '@angular/http';
 import { environment } from '../environments/environment';
 import { ApiService } from './services/api.service';
 import { LinkifystrPipe } from './pipes/linkifystr.pipe';
+import { LoginComponent } from './login/login.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBmeDwdL7MWFLTc2p1-xYcVEzs3s__gwvA",
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
   { path: '', component: LugaresComponent },
   { path: 'lugares', component: LugaresComponent },
   { path: 'contacto', component: ContactoComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'crear/:id', component: CrearComponent },
   { path: 'detalle/:id', component: DetalleComponent }
 ];
@@ -59,7 +61,8 @@ const appRoutes: Routes = [
     LugaresComponent,
     ContactoComponent,
     CrearComponent,
-    LinkifystrPipe
+    LinkifystrPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
