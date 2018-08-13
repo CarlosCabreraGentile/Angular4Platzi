@@ -9,6 +9,8 @@ import { LugaresService } from '../services/lugares.services';
 export class LugaresComponent implements OnInit {
   title = 'Bussiness';
   bussiness = null;
+  lat = 41.386791;
+  lng = 2.170031;
   
   constructor(private lugaresService: LugaresService) { 
     lugaresService.getBussiness() 

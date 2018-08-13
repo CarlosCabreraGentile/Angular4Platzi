@@ -3,11 +3,13 @@
     <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
       <div class="well">
         <label for="">Email</label>
-        <input class="form-control" type="email" name="">
+        <input class="form-control" type="email" [(ngModel)]="loginParams.email">
         <br>
-        <input class="form-control" type="password" name="">
+        <label for="">Contraseña</label>
+        <input class="form-control" type="password" [(ngModel)]="loginParams.password">
         <hr>
-        <a class="btn btn-primary">Login</a>
+        <a class="btn btn-warning"(click)="login()">Login</a>
+        <a class="btn btn-primary"(click)="facebookLogin()">Login con Facebook</a>
         <a class="btn btn-default">Cancelar</a>
       </div>
     </div>

@@ -15,14 +15,19 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active">
-          <a routerLink="/lugares">Inicio
-            <span class="sr-only">(current)</span>
-          </a>
+        <li routerLinkActive="active"><a routerLink="/lugares">Inicio
+            <span class="sr-only">(current)</span></a>
         </li>
-        <li routerLinkActive="active">
-          <a routerLink="/contacto">Contacto</a>
+        <li routerLinkActive="active"><a routerLink="/contacto">Contacto</a>
         </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf="!loggedIn">
+        <li><a routerLink="/login">Login</a></li>
+        <li><a routerLink="/registro">Register</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf="loggedIn">
+        <li><a>User: {{ email }} </a></li>
+        <li><a (click)="logoutButton()">Logout</a></li>
       </ul>
     </div>
     <!-- /.navbar-collapse -->

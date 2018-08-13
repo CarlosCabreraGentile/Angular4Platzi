@@ -22,13 +22,17 @@ import { ApiService } from './services/api.service';
 import { LinkifystrPipe } from './pipes/linkifystr.pipe';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
+import { AutorizacionService } from './services/autorizacion.service';
+import { MyGuard } from './services/my-guard.service';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBmeDwdL7MWFLTc2p1-xYcVEzs3s__gwvA",
-  authDomain: "angular4platziapp.firebaseapp.com",
-  databaseURL: "https://angular4platziapp.firebaseio.com",
-  storageBucket: "angular4platziapp.appspot.com",
-  messagingSenderId: "641436142494"
+  // apiKey: "AAIzaSyBmeDwdL7MWFLTc2p1-xYcVEzs3s__gwvA",
+  // authDomain: "angular4platziapp.firebaseapp.com",
+  // databaseURL: "https://angular4platziapp.firebaseio.com",
+  // storageBucket: "angular4platziapp.appspot.com",
+  // messagingSenderId: "641436142494"
+
+  //AIzaSyBmeDwdL7MWFLTc2p1-xYcVEzs3s__gwvA
 
   // apiKey: "AIzaSyBcQQBDOM6DJDLbExeV1NIkvOMqCDMRnRw",
   // authDomain: "angular4platziapp2.firebaseapp.com",
@@ -36,11 +40,11 @@ export const firebaseConfig = {
   // storageBucket: "angular4platziapp2.appspot.com",
   // messagingSenderId: "1016831324985"
 
-  // apiKey: "AIzaSyCwUkfLH1P-ra4K6QTPoKHkG6WNrEzx9xY",
-  // authDomain: "angular4platziapp-212814.firebaseapp.com",
-  // databaseURL: "https://angular4platziapp-212814.firebaseio.com",
-  // storageBucket: "",
-  // messagingSenderId: "519441962064"
+  apiKey: "AIzaSyCwUkfLH1P-ra4K6QTPoKHkG6WNrEzx9xY",
+  authDomain: "angular4platziapp-212814.firebaseapp.com",
+  databaseURL: "https://angular4platziapp-212814.firebaseio.com",
+  storageBucket: "angular4platziapp-212814.appspot.com",
+  messagingSenderId: "519441962064"
 
 }
 
@@ -50,7 +54,7 @@ const appRoutes: Routes = [
   { path: 'contacto', component: ContactoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'crear/:id', component: CrearComponent },
+  { path: 'crear/:id', component: CrearComponent, canActivate: [MyGuard] },
   { path: 'detalle/:id', component: DetalleComponent }
 ];
 
@@ -65,21 +69,21 @@ const appRoutes: Routes = [
     CrearComponent,
     LinkifystrPipe,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBmeDwdL7MWFLTc2p1-xYcVEzs3s__gwvA'
+      apiKey: 'AIzaSyCwUkfLH1P-ra4K6QTPoKHkG6WNrEzx9xY'
     }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpModule
   ],
-  providers: [LugaresService, ApiService],
+  providers: [LugaresService, ApiService, AutorizacionService, MyGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
