@@ -20,14 +20,14 @@ export class CrearComponent implements OnInit {
       console.log(this.id);
       this.lugaresService.getNegocio(this.id)
         .subscribe((bussiness) => {
-          this.bussiness = bussiness; 
+          this.bussiness = bussiness;  
           console.log(this.bussiness);
         });
     }
   }
 
-  guardarNegocio() {
-
+  saveBussiness() {
+  
     if (this.id != 'new') {
       this.lugaresService.guardarNegocioEditado(this.bussiness);
       alert('Bussiness Edited');
