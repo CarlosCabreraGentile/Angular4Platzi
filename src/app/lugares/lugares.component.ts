@@ -7,41 +7,23 @@ import { LugaresService } from '../services/lugares.services';
   styleUrls: ['./lugares.component.css']
 })
 export class LugaresComponent implements OnInit {
-  title = 'Negocios';
-  listo: boolean = false;
-  nombre: string = '';
-  lat: number = 39.045041;
-  lng: number = 1.482308;
-  negocios = null;
+  title = 'Bussiness';
+  bussiness = null;
+  lat = 41.386791;
+  lng = 2.170031;
   
-  constructor(private lugaresService: LugaresService) {
-    lugaresService.getNegocios()
+  constructor(private lugaresService: LugaresService) { 
+    lugaresService.getBussiness() 
       .subscribe(
         (data: any) => {
-          this.negocios = data;
-          debugger
+          this.bussiness = data;
         },
         (err: any) => {
           console.log(err);
         }
       )
-
-      /*
-      .valueChanges().subscribe((negocios) => {
-        this.negocios = negocios;
-      });
-      */
-    // console.dir('LugaresComponent');
-    // setTimeout(() => {
-    //   this.listo = true;
-    // }, 3000);
   }
-  
+
   ngOnInit() {
   }
-
-  // hacerAlgo(){
-  //   alert('Haciendo algo');
-  // }
-
 }

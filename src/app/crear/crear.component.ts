@@ -8,49 +8,35 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./crear.component.css']
 })
 export class CrearComponent implements OnInit {
-  negocio: any = {};
-  id: any = null;
+  bussiness: any = {};
+  id: any = null; 
 
-  constructor(private lugaresService: LugaresService, private route: ActivatedRoute) { 
+  constructor(private lugaresService: LugaresService, private route: ActivatedRoute) {
     this.id = this.route.snapshot.params['id'];
-    // debugger
-   
   }
 
   ngOnInit() {
-    if(this.id != 'new'){
+    if (this.id != 'new') {
       console.log(this.id);
       this.lugaresService.getNegocio(this.id)
-        .subscribe((negocio) => { //con el get de http se le quita el valueChanges() al subscribe
-          this.negocio = negocio;
-          console.log(this.negocio);          
+        .subscribe((bussiness) => {
+          this.bussiness = bussiness;  
+          console.log(this.bussiness);
         });
     }
   }
 
-  guardarNegocio() {
-    // let direccion = this.negocio.calle + ',' + this.negocio.ciudad + ',' + this.negocio.pais;
-
-    
-    // this.lugaresService.obtenerGeoData(direccion)
-    //   .subscribe((result) => {
-    //     // debugger;
-    //     this.negocio.lat = result.json().results[0].geometry.location.lat;
-    //     this.negocio.lng = result.json().results[0].geometry.location.lng;
-        
-        if(this.id != 'new'){
-          this.lugaresService.guardarNegocioEditado(this.negocio);
-          alert('Negocio Editado');
-        }
-        else{
-
-        this.negocio.id = Date.now();
-        this.lugaresService.postNegocio(this.negocio);
-        alert('Negocio Guardado');
-        }
-        this.negocio = {};
-      // });
-      
+  saveBussiness() {
+  
+    if (this.id != 'new') {
+      this.lugaresService.editBussiness(this.id, this.bussiness);
+      alert('Bussiness Edited');
+    }
+    else {
+      this.lugaresService.postBussiness(this.bussiness);
+      alert('Bussiness Saved');
+    }
+    this.bussiness = {};
   }
 
 }

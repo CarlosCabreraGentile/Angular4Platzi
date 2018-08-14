@@ -1,9 +1,17 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
-      <p>
-        
-      </p>
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+      <div class="well">
+        <label for="">Email</label>
+        <input class="form-control" type="email" [(ngModel)]="loginParams.email">
+        <br>
+        <label for="">Password</label>
+        <input class="form-control" type="password" [(ngModel)]="loginParams.password">
+        <hr>
+        <a class="btn btn-warning"(click)="login()">Login</a>
+        <a class="btn btn-primary"(click)="facebookLogin()">Login with Facebook</a>
+        <a class="btn btn-default">Cancel</a>
+      </div>
     </div>
   </div>
 </div>

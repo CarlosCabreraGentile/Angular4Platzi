@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+      <div class="well">
+        <label for="">Email</label>
+        <input class="form-control" type="email" [(ngModel)]="registro.email">
+        <br>
+        <label for="">Contraseña</label>
+        <input class="form-control" type="password" [(ngModel)]="registro.password">
+        <hr>
+        <a class="btn btn-primary" (click)="registrar()">Registrarse</a>
+        <a class="btn btn-default">Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
