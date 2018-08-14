@@ -33,6 +33,7 @@ export class LugaresService {
     this.apiService.httpGet('/negocios.json')
       .subscribe(
         (data: any) => {
+          console.log(JSON.stringify(data))
           const negocios = HelperService.fromObjectToArray(data);
           subject.next(negocios);
         },
@@ -46,16 +47,17 @@ export class LugaresService {
   /**
    * Create a new business
    * @param negocio 
-   */
-  public postNegocio(negocio) {
+   */ 
+  public postBussiness(negocio) {
     const subject = new Subject<any>();
     this.apiService.httpPost('/negocios.json', negocio);
 
     // return subject.asObservable();
   }
 
-  public guardarNegocioEditado(negocio) {
-    this.angularFireBase.database.ref('negocios/' + negocio.id).set(negocio);
+  public editBussiness(id, negocio) {
+    // this.angularFireBase.database.ref('negocios/' + negocio.id).set(negocio);
+    this.apiService.httpPut('/negocios/' + id +'.json' , negocio);
   }
 
   public obtenerGeoData(direccion) {

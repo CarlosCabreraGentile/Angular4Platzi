@@ -29,11 +29,11 @@ export class CrearComponent implements OnInit {
   saveBussiness() {
   
     if (this.id != 'new') {
-      this.lugaresService.guardarNegocioEditado(this.bussiness);
+      this.lugaresService.editBussiness(this.id, this.bussiness);
       alert('Bussiness Edited');
     }
     else {
-      this.lugaresService.postNegocio(this.bussiness);
+      this.lugaresService.postBussiness(this.bussiness);
       alert('Bussiness Saved');
     }
     this.bussiness = {};

@@ -5,7 +5,6 @@ export class HelperService {
             return [];
         }
         else{
-
             let  objectRetornado = Object.keys(object).map((key) => {
                 const obj = object[key];
                 obj['_id'] = key;

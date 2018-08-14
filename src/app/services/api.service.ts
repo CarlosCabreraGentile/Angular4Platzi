@@ -72,7 +72,7 @@ export class ApiService {
 		if (dataPost) {
 			json = JSON.stringify(dataPost);
 		}
-		this.http.post(this.baseUrl + endpoint, json, { "headers": new Headers({"Content-Type": "application/json"}) }) //, { headers: this.getHttpHeaders() })
+		this.http.post(this.baseUrl + endpoint, json, { "headers": new Headers({ "Content-Type": "application/json" }) }) //, { headers: this.getHttpHeaders() })
 			.pipe(map((response: any) => response.json()))
 			.pipe(catchError(this.handleError))
 			.subscribe(
@@ -110,19 +110,25 @@ export class ApiService {
 		return subject.asObservable();
 	}
 
-
 	/**
 	 * HTTP Put
-	 * @param res
+	 * @param endpoint
 	 * @param dataPost
 	 * @param localApi
 	 * @returns {Observable<R>}
 	 */
-	httpPut(res, dataPost, mockapi: boolean = false): Observable<any> {
+	httpPut(endpoint, dataPost, mockapi: boolean = false): Observable<any> {
+		const subject = new Subject<any>();
 		const json = JSON.stringify(dataPost);
-		return this.http.put(this.baseUrl + res, json) //, { headers: this.getHttpHeaders() })
+		this.http.put(this.baseUrl + endpoint, json, { "headers": new Headers({ "Content-Type": "application/json" }) }) //, { headers: this.getHttpHeaders() })
 			.pipe(map((response: any) => response.json()))
-			.pipe(catchError(this.handleError));
+			.pipe(catchError(this.handleError))
+			.subscribe(
+				data => subject.next(data),
+				error => subject.error(error),
+				() => subject.complete()
+			);
+		return subject.asObservable();
 	}
 
 
